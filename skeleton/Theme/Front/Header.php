@@ -13,7 +13,13 @@ namespace Skeleton\Theme\Front;
 defined( 'ABSPATH' ) or die( 'Cheatin\' uh?' );
 
 class Header {
-
+	
+	public function addViewport() {
+		
+		echo '<meta name="viewport" content="' . $GLOBALS['theme']->viewport . '">' . "\n";
+		
+	}
+	
 	public function addFavicon() {
 
 		$buffer 	 = '';
@@ -36,7 +42,7 @@ class Header {
 		echo $buffer;
 
 	}
-
+	
 	public function addGoogleAnalytics() {
 
 		$UA     = $GLOBALS['theme']->UA;

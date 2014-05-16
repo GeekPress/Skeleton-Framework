@@ -55,7 +55,15 @@ class Manager {
 	 * @access protected
 	 */
 	protected $UA;
-
+	
+	/**
+	 * Valeur de la balise meta viewport
+	 *
+	 * @var string
+	 * @access protected
+	 */
+	protected $viewport;
+	
 	protected $enqueue = array();
 	
 	protected $acf_options_sub_page;
@@ -164,6 +172,10 @@ class Manager {
 		}
 		else {
 			new Admin\Notice( 'favicon' );
+		}
+		
+		if( $this->viewport ) {
+			add_action( 'wp_head', array( $header, 'addViewport' ) );
 		}
 		
 		if( apply_filters( 'skeleton_clean_wp_head', true ) ) {
