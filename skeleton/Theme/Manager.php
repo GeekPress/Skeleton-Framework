@@ -12,6 +12,8 @@
 namespace Skeleton\Theme;
 defined( 'ABSPATH' ) or die( 'Cheatin\' uh?' );
 
+require( 'functions.php' );
+
 class Manager {
 	
 	/**
@@ -114,23 +116,22 @@ class Manager {
 		$this->hydrate( $data );
 		
 		$this->init();
+		
+		
 
 	}
 
 	private function init() {
 		
-		if( ! is_admin() ) {
-			
-			$this->header();
+		if( ! is_admin() ) {	
 			$this->enqueue();
-			
 		}
 		
 		if( is_admin() ) {
-			
-			$this->acf();
-			
+			$this->acf();	
 		}
+		
+		$this->header();
 		
 	}
 
@@ -148,12 +149,21 @@ class Manager {
 		
 		$header = new Front\Header();
 		
-		if ( $this->UA ) {
-			add_action( 'wp_head', array( $header, 'addGoogleAnalytics' ) );
+		if( defined( 'APP_ENV' ) && APP_ENV == 'production' ) {
+			
+			if ( $this->UA ) {
+				add_action( 'wp_head', array( $header, 'addGoogleAnalytics' ) );
+			} else  {
+				new Admin\Notice( 'google-analytics' );
+			}
+				
 		}
-		
-		if( $this->favicon ) {
-			add_action( 'wp_head', array( $header, 'addFavicon' ) );
+
+		if( skeleton_has_favicon( $this->favicon_uri ) ) {
+			add_action( 'wp_head', array( $header, 'addFavicon' ) );	
+		}
+		else {
+			new Admin\Notice( 'favicon' );
 		}
 		
 		if( apply_filters( 'skeleton_clean_wp_head', true ) ) {

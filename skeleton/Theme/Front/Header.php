@@ -16,7 +16,7 @@ class Header {
 
 	public function addFavicon() {
 
-		$buffer 	 = false;
+		$buffer 	 = '';
 		$favicon_uri = apply_filters( 'skeleton_favicon_uri', $GLOBALS['theme']->favicon_uri );
 
 		$apple_touch_icons = $GLOBALS['theme']->favicon['apple'];
@@ -38,10 +38,6 @@ class Header {
 	}
 
 	public function addGoogleAnalytics() {
-
-		if ( defined( 'APP_ENV' ) && APP_ENV != 'PROD' ) {
-			return false;
-		}
 
 		$UA     = $GLOBALS['theme']->UA;
 		$buffer = '';
