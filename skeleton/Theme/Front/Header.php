@@ -16,7 +16,7 @@ class Header {
 	
 	public function addViewport() {
 		
-		echo '<meta name="viewport" content="' . $GLOBALS['theme']->viewport . '">' . "\n";
+		echo '<meta name="viewport" content="' . esc_attr( $GLOBALS['theme']->viewport ) . '">' . "\n";
 		
 	}
 	
